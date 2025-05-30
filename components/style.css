@@ -183,6 +183,12 @@ body {
   .nav-links a:hover {
     color: #4CAF50;
   }
+
+.navbar.transparent {
+  background: transparent;
+  box-shadow: none;
+}
+
   
   /* ===================
      Desktop Dropdown
