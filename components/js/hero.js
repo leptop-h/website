@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const dots = document.querySelectorAll(".dot");
 
+    updateCarousel();
     function updateCarousel() {
         items.forEach((item, index) => {
             item.classList.toggle("active", index === current);
