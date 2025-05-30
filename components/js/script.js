@@ -2,17 +2,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.querySelector('.navbar');
     const hamburger = document.querySelector('.hamburger');
     const sidebar = document.querySelector('.sidebar');
+    const dropdowns = document.querySelectorAll('.sidebar .dropdown');
     const isHomePage = document.body.id === 'home-page';
     let lastScrollY = window.scrollY;
     let touchStartX = 0, touchEndX = 0;
 
-    // Header init
     if (isHomePage) {
         navbar.classList.add('transparent');
     } else {
         navbar.classList.add('fixed');
     }
 
+    // Scroll behavior
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
 
@@ -26,23 +27,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         lastScrollY = currentScrollY;
-
-        // Animate stats
-        document.querySelectorAll('.stats-number h2').forEach(number => {
-            const rect = number.getBoundingClientRect();
-            if (rect.top >= 0 && rect.bottom <= window.innerHeight && !number.classList.contains('animate')) {
-                number.classList.add('animate');
-            }
-        });
     });
 
     navbar.classList.add('visible');
 
     // Sidebar toggle
     function toggleSidebar(show = null) {
-        const action = show === null ? 'toggle' : (show ? 'add' : 'remove');
-        hamburger.classList[action]('active');
-        sidebar.classList[action]('active');
+        const isActive = sidebar.classList.contains('active');
+        const shouldShow = show !== null ? show : !isActive;
+
+        sidebar.classList.toggle('active', shouldShow);
+        hamburger.classList.toggle('active', shouldShow);
     }
 
     hamburger.addEventListener('click', e => {
@@ -51,35 +46,15 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleSidebar();
     });
 
-    // Tutup sidebar jika klik di luar (kecuali dropdown)
+    // Klik luar sidebar tutup sidebar (kecuali dropdown)
     document.addEventListener('click', e => {
-        const isClickInsideSidebar = sidebar.contains(e.target);
-        const isClickOnHamburger = hamburger.contains(e.target);
-        const isClickOnDropdown = e.target.closest('.sidebar .dropdown');
-
-        if (!isClickInsideSidebar && !isClickOnHamburger && !isClickOnDropdown) {
+        if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
             toggleSidebar(false);
         }
-
-        // Tutup dropdown lain jika klik di luar
-        document.querySelectorAll('.sidebar .dropdown').forEach(dropdown => {
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('active');
-                const content = dropdown.querySelector('.dropdown-content');
-                if (content) content.classList.remove('show');
-            }
-        });
     });
 
-    // Sidebar links: tutup jika bukan dropdown
-    sidebar.querySelectorAll('a').forEach(link => {
-        if (!link.closest('.dropdown')) {
-            link.addEventListener('click', () => toggleSidebar(false));
-        }
-    });
-
-    // Dropdown sidebar mobile
-    document.querySelectorAll('.sidebar .dropdown').forEach(dropdown => {
+    // Dropdown handling
+    dropdowns.forEach(dropdown => {
         const toggle = dropdown.querySelector('a');
         const content = dropdown.querySelector('.dropdown-content');
 
@@ -88,13 +63,12 @@ document.addEventListener('DOMContentLoaded', function () {
             e.stopPropagation();
 
             const isActive = dropdown.classList.contains('active');
-            // Tutup semua dropdown dulu
-            document.querySelectorAll('.sidebar .dropdown').forEach(other => {
-                other.classList.remove('active');
-                other.querySelector('.dropdown-content')?.classList.remove('show');
+
+            dropdowns.forEach(d => {
+                d.classList.remove('active');
+                d.querySelector('.dropdown-content')?.classList.remove('show');
             });
 
-            // Aktifkan dropdown jika belum aktif
             if (!isActive) {
                 dropdown.classList.add('active');
                 content.classList.add('show');
@@ -106,171 +80,74 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    if (window.innerWidth <= 768) {
-        document.querySelectorAll('.sidebar .dropdown').forEach(d => d.style.pointerEvents = 'auto');
-    }
-
-    // Sidebar gesture (touch)
-    let touchActive = false, startTime = 0, lastTouchY = 0, isScrolling = false;
-
-    sidebar.addEventListener('touchstart', e => {
-        touchActive = true;
-        touchStartX = e.touches[0].clientX;
-        lastTouchY = e.touches[0].clientY;
-        touchEndX = touchStartX;
-        startTime = Date.now();
-        isScrolling = false;
-        sidebar.style.transition = 'none';
-        requestAnimationFrame(updateSidebar);
-    });
-
-    sidebar.addEventListener('touchmove', e => {
-        if (!touchActive) return;
-
-        const touchY = e.touches[0].clientY;
-        const deltaY = touchY - lastTouchY;
-
-        if (!isScrolling && Math.abs(deltaY) > Math.abs(e.touches[0].clientX - touchStartX)) {
-            isScrolling = true;
-            return;
-        }
-
-        if (!isScrolling) {
-            touchEndX = e.touches[0].clientX;
-            const deltaX = touchEndX - touchStartX;
-            if (deltaX <= 0) {
-                e.preventDefault();
-            }
-        }
-
-        lastTouchY = touchY;
-    });
-
-    function updateSidebar() {
-        if (!touchActive || isScrolling) return;
-        const deltaX = touchEndX - touchStartX;
-        if (deltaX <= 0) {
-            const progress = Math.max(0, 1 + deltaX / 300);
-            sidebar.style.transform = `translateX(${deltaX}px)`;
-            sidebar.style.opacity = progress.toString();
-        }
-        requestAnimationFrame(updateSidebar);
-    }
-
-    sidebar.addEventListener('touchend', () => {
-        if (!touchActive || isScrolling) return;
-        touchActive = false;
-        const deltaX = touchEndX - touchStartX;
-        const swipeTime = Date.now() - startTime;
-        const swipeSpeed = Math.abs(deltaX) / swipeTime;
-
-        sidebar.style.transition = 'all 0.3s ease';
-        if (deltaX < -50 || (swipeSpeed > 0.5 && deltaX < 0)) {
-            toggleSidebar(false);
-        } else {
-            sidebar.style.transform = 'translateX(0)';
-            sidebar.style.opacity = '1';
-        }
-    });
-
-    // Touch feedback sidebar links
-    sidebar.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('touchstart', () => link.style.backgroundColor = 'rgba(255,255,255,0.1)');
-        link.addEventListener('touchend', () => link.style.backgroundColor = '');
+    // Link klik tutup sidebar
+    sidebar.querySelectorAll('a:not(.dropdown > a)').forEach(link => {
+        link.addEventListener('click', () => toggleSidebar(false));
     });
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href').substring(1);
-            const target = document.getElementById(targetId);
+            const target = document.getElementById(this.getAttribute('href').substring(1));
             if (target) {
                 e.preventDefault();
                 toggleSidebar(false);
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
 
-    // Carousel
-    const carousel = document.querySelector('.carousel');
-    const items = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    let current = 0, autoplay, animating = false;
+    // Sidebar touch gesture
+    let touchActive = false, lastTouchY = 0, startTime = 0, isScrolling = false;
 
-    function updateSlide() {
-        if (animating) return;
-        animating = true;
-        items.forEach(item => {
-            item.style.transition = 'opacity 0.8s ease-in-out';
-            item.classList.remove('active');
-        });
-        document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+    sidebar.addEventListener('touchstart', e => {
+        if (!sidebar.classList.contains('active')) return;
+        touchActive = true;
+        touchStartX = touchEndX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+        startTime = Date.now();
+        isScrolling = false;
+        sidebar.style.transition = 'none';
+    });
 
-        items[current].classList.add('active');
-        document.querySelectorAll('.dot')[current].classList.add('active');
-        setTimeout(() => animating = false, 800);
-    }
+    sidebar.addEventListener('touchmove', e => {
+        if (!touchActive) return;
 
-    function goToSlide(i) {
-        current = i;
-        updateSlide();
-        resetAutoplay();
-    }
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        const deltaX = touchX - touchStartX;
+        const deltaY = touchY - lastTouchY;
 
-    function nextSlide() {
-        if (!animating) {
-            current = (current + 1) % items.length;
-            updateSlide();
+        if (!isScrolling && Math.abs(deltaY) > Math.abs(deltaX)) {
+            isScrolling = true;
+            return;
         }
-    }
 
-    function prevSlide() {
-        current = (current - 1 + items.length) % items.length;
-        updateSlide();
-    }
+        if (!isScrolling && deltaX < 0) {
+            e.preventDefault();
+            touchEndX = touchX;
+            const offset = Math.max(-300, deltaX);
+            sidebar.style.transform = `translateX(${offset}px)`;
+        }
 
-    function startAutoplay() {
-        autoplay = setInterval(() => !animating && nextSlide(), 6000);
-    }
-
-    function resetAutoplay() {
-        clearInterval(autoplay);
-        startAutoplay();
-    }
-
-    // Setup carousel
-    items.forEach(item => {
-        item.style.pointerEvents = 'none';
-        item.querySelectorAll('a, button').forEach(el => el.style.pointerEvents = 'auto');
+        lastTouchY = touchY;
     });
 
-    if (document.querySelector('.hero')) {
-        document.querySelector('.hero').style.pointerEvents = 'none';
-        document.querySelectorAll('.hero a, .hero button').forEach(btn => btn.style.pointerEvents = 'auto');
-    }
+    sidebar.addEventListener('touchend', () => {
+        if (!touchActive || isScrolling) return;
 
-    items.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
+        touchActive = false;
+        const deltaX = touchEndX - touchStartX;
+        const duration = Date.now() - startTime;
+        const velocity = deltaX / duration;
+
+        sidebar.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+
+        if (deltaX < -80 || velocity < -0.3) {
+            toggleSidebar(false);
+            sidebar.style.transform = '';
+        } else {
+            sidebar.style.transform = '';
+        }
     });
-
-    prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetAutoplay();
-    });
-
-    nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetAutoplay();
-    });
-
-    carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
-    carousel.addEventListener('mouseleave', startAutoplay);
-    startAutoplay();
 });
