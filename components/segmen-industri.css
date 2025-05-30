@@ -1,0 +1,99 @@
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/portofolio/penyiraman/penyiraman1.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 60px 20px;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    margin-top: auto;
+}
+
+.hero-section h1 {
+    font-size: 2.5em;
+    color: #ffffff;
+    margin: 20px;
+    font-weight: 600;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-top: 100px;
+}
+
+.segmen-section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.segmen-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.segmen-intro {
+    font-size: 1.1em;
+    color: #202820;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.segmen-item {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-left: 4px solid #219a32;
+    background: #f8f9fa;
+    transition: transform 0.3s ease;
+}
+
+.segmen-item:hover {
+    transform: translateX(10px);
+}
+
+.segmen-item h2 {
+    color: #333;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+.segmen-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Responsive Design mobile */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 20px;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-section h1 {
+        font-size: 1.9em;
+        max-width: 90%;
+        margin: 60px;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .segmen-section {
+        padding: 20px;
+    }
+
+    .segmen-card {
+        padding: 20px;
+    }
+
+    .segmen-item {
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    .segmen-item h2 {
+        font-size: 1.2em;
+    }
+}

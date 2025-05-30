@@ -1,0 +1,70 @@
+.visi-misi-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.visi-box, .misi-box {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.visi-content {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.misi-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.misi-item {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.misi-item:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .visi-box, .misi-box {
+        padding: 30px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .visi-content {
+        font-size: 16px;
+    }
+
+    .misi-item {
+        font-size: 16px;
+    }
+}
