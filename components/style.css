@@ -549,9 +549,6 @@ body {
 .stats-number h2 {
     font-size: 8rem;
     color: #202820;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .stats-number h2.animate {
