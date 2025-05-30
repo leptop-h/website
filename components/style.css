@@ -798,9 +798,12 @@ body {
 }
 
 .carousel-item:nth-child(1) {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../assets/slider/slider\ home/slider1.jpg');
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../assets/slider/slider%20home/slider1.jpg');
     background-size: cover;
-}
+    background-color: #202820; /* debug */
+  }
+
 
 .carousel-item:nth-child(2) {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../assets/slider/slider\ home/slider2.jpg');
