@@ -649,9 +649,9 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0;
-    pointer-events: none; 
-    z-index: 0;
-    transition: opacity 0.8s ease-in-out;
+    pointer-events: none; /* Tambahkan ini */
+    z-index: 0; /* Pastikan item non-aktif berada di bawah */
+    transition: opacity 0.8s ease-in-out 0.3s;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -754,7 +754,8 @@ body {
 
 .hero-content h1 {
     font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
 }
 
 .hero-buttons {
@@ -786,6 +787,51 @@ body {
     border: 2px solid white;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .hero-content {
+        padding-left: 5%;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem; /* Tetap besar */
+        line-height: 1.2;
+        margin-bottom: 0.5rem; /* Rapat ke paragraf */
+    }
+
+    .hero-content p {
+        font-size: 1.1rem; /* Tetap besar */
+        margin-bottom: 0.5rem; /* Rapat ke tombol */
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: row; /* Tetap horizontal */
+        gap: 0.5rem; /* Jarak antar tombol */
+        margin-top: 0.5rem; /* Lebih rapat dari paragraf */
+    }
+
+    .btn {
+        padding: 0.5rem 1.2rem; /* Perkecil ukuran tombol */
+        font-size: 0.85rem; /* Kecil tapi tetap terbaca */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.8rem; /* Sedikit lebih kecil di HP sangat kecil */
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
 
 /* Projects Section */
 .projects {
@@ -1120,6 +1166,11 @@ footer::before {
     font-size: 14px;
     color: #aaa;
     letter-spacing: 0.5px;
+}
+
+.contact-item a {
+    color: inherit;         /* atau gunakan 'black' */
+    text-decoration: none;
 }
 
 /******************* FOOTER MOBILE RESPONSIVE *************************/
