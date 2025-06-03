@@ -65,3 +65,37 @@ document.addEventListener("DOMContentLoaded", function () {
     startAutoSlide();
 });
 
+// components/js/hero.js
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('data/hero.json')
+    .then(res => res.json())
+    .then(data => {
+      const carousel = document.getElementById("hero-carousel");
+      const nav = carousel.querySelector(".carousel-nav");
+      
+      data.slides.forEach((slide, index) => {
+        const item = document.createElement("div");
+        item.className = "carousel-item" + (index === 0 ? " active" : "");
+        item.style.background = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${slide.background}')`;
+        item.style.backgroundSize = 'cover';
+
+        item.innerHTML = `
+          <div class="hero-content">
+            <h1>${slide.title}</h1>
+            <p>${slide.description}</p>
+            <div class="hero-buttons">
+              <a href="${slide.button1_url}" class="btn primary">${slide.button1_label}</a>
+              <a href="${slide.button2_url}" class="btn secondary">${slide.button2_label}</a>
+            </div>
+          </div>
+        `;
+        
+        carousel.insertBefore(item, nav);
+      });
+
+      // Optional: Inisialisasi carousel logic (next/prev btn) bisa ditaruh di sini
+    })
+    .catch(err => console.error("Gagal memuat hero.json:", err));
+});
+
+
