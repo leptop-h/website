@@ -1,18 +1,23 @@
 backend:
   name: git-gateway
-  branch: main  # pastikan sesuai dengan nama branch di GitHub (bisa 'master' juga)
+  branch: main  # sesuaikan dengan branch lo
 
-media_folder: "uploads"
-public_folder: "/uploads"
+media_folder: "static/img"  # tempat upload gambar, buat folder ini kalau belum ada
+public_folder: "/img"
 
 collections:
-  - name: "projects"
-    label: "Projects"
-    folder: "content/projects"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Image", name: "image", widget: "image" }
-
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "index.html"
+        label: "Home Page"
+        name: "home"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "markdown" }
+      - file: "about.html"
+        label: "About Page"
+        name: "about"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "markdown" }
