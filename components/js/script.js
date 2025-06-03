@@ -146,6 +146,28 @@ document.addEventListener('DOMContentLoaded', function () {
         if (deltaX < -80 || velocity < -0.3) {
             toggleSidebar(false);
             sidebar.style.transform = '';
+
+
+            fetch('data/projects.yaml')
+  .then(response => response.text())
+  .then(yamlText => {
+    const projects = jsyaml.load(yamlText);
+    const container = document.getElementById('project-grid');
+    projects.forEach(project => {
+      const div = document.createElement('div');
+      div.className = 'project-card';
+      div.innerHTML = `
+        <img src="${project.image}" alt="${project.title}">
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+      `;
+      container.appendChild(div);
+    });
+  })
+  .catch(error => {
+    console.error('Gagal memuat proyek:', error);
+  });
+
         } else {
             sidebar.style.transform = '';
         }
