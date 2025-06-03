@@ -163,8 +163,10 @@ document.addEventListener('DOMContentLoaded', function () {
       div.className = 'project-card';
       div.innerHTML = `
         <img src="${project.image}" alt="${project.title}">
-        <h3>${project.title}</h3>
-        <p>${project.description}</p>
+        <div class="project-info">
+          <h3>${project.title}</h3>
+          <p>${project.description}</p>
+        </div>
       `;
       container.appendChild(div);
     });
