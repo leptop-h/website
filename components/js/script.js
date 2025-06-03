@@ -148,7 +148,12 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebar.style.transform = '';
 
 
-            fetch('data/projects.yaml')
+        } else {
+            sidebar.style.transform = '';
+        }
+    });
+
+     fetch('data/projects.yaml')
   .then(response => response.text())
   .then(yamlText => {
     const projects = jsyaml.load(yamlText);
@@ -167,9 +172,4 @@ document.addEventListener('DOMContentLoaded', function () {
   .catch(error => {
     console.error('Gagal memuat proyek:', error);
   });
-
-        } else {
-            sidebar.style.transform = '';
-        }
-    });
 });
