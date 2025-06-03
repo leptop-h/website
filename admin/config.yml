@@ -2,16 +2,48 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "static/images/uploads"
-public_folder: "/images/uploads"
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
 collections:
-  - name: "posts"
-    label: "Posts"
-    folder: "content/posts"
+  - name: "proyek-terbaru"
+    label: "Proyek Terbaru"
+    folder: "data/proyek-terbaru"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - {label: "Judul", name: "title", widget: "string"}
+      - {label: "Tanggal", name: "date", widget: "datetime"}
+      - {label: "Deskripsi", name: "description", widget: "text"}
+      - {label: "Gambar", name: "image", widget: "image"}
+
+  - name: "portofolio"
+    label: "Portofolio"
+    folder: "data/portofolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Judul Proyek", name: "title", widget: "string"}
+      - {label: "Kategori", name: "category", widget: "string"}
+      - {label: "Link", name: "link", widget: "string"}
+      - {label: "Gambar", name: "image", widget: "image"}
+      - {label: "Deskripsi", name: "body", widget: "markdown"}
+
+  - name: "halaman"
+    label: "Gambar Halaman"
+    files:
+      - label: "Revegetasi"
+        name: "revegetasi"
+        file: "data/halaman/revegetasi.md"
+        fields:
+          - {label: "Gambar", name: "image", widget: "image"}
+      - label: "Penyiraman"
+        name: "penyiraman"
+        file: "data/halaman/penyiraman.md"
+        fields:
+          - {label: "Gambar", name: "image", widget: "image"}
+      - label: "Supporting"
+        name: "supporting"
+        file: "data/halaman/suporting.md"
+        fields:
+          - {label: "Gambar", name: "image", widget: "image"}
