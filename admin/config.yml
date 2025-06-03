@@ -1,49 +1,46 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main # atau ganti sesuai nama branch GitHub lo
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+media_folder: "assets" # folder tempat nyimpen gambar
+public_folder: "/assets"
 
 collections:
-  - name: "proyek-terbaru"
+  - name: "proyek"
     label: "Proyek Terbaru"
-    folder: "data/proyek-terbaru"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Judul", name: "title", widget: "string"}
-      - {label: "Tanggal", name: "date", widget: "datetime"}
-      - {label: "Deskripsi", name: "description", widget: "text"}
-      - {label: "Gambar", name: "image", widget: "image"}
+    files:
+      - file: "index.html"
+        label: "Index - Proyek Terbaru"
+        name: "index_proyek"
+        fields:
+          - { label: "Judul", name: "judul", widget: "string" }
+          - { label: "Deskripsi", name: "deskripsi", widget: "text" }
 
   - name: "portofolio"
     label: "Portofolio"
-    folder: "data/portofolio"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Judul Proyek", name: "title", widget: "string"}
-      - {label: "Kategori", name: "category", widget: "string"}
-      - {label: "Link", name: "link", widget: "string"}
-      - {label: "Gambar", name: "image", widget: "image"}
-      - {label: "Deskripsi", name: "body", widget: "markdown"}
+    files:
+      - file: "portofolio.html"
+        label: "Portofolio Page"
+        name: "portofolio_page"
+        fields:
+          - { label: "Judul", name: "judul", widget: "string" }
+          - { label: "Isi", name: "isi", widget: "text" }
 
-  - name: "halaman"
+  - name: "gambar"
     label: "Gambar Halaman"
     files:
-      - label: "Revegetasi"
+      - file: "revegetasi.html"
+        label: "Revegetasi"
         name: "revegetasi"
-        file: "data/halaman/revegetasi.md"
         fields:
-          - {label: "Gambar", name: "image", widget: "image"}
-      - label: "Penyiraman"
+          - { label: "Gambar", name: "gambar", widget: "image" }
+      - file: "penyiraman.html"
+        label: "Penyiraman"
         name: "penyiraman"
-        file: "data/halaman/penyiraman.md"
         fields:
-          - {label: "Gambar", name: "image", widget: "image"}
-      - label: "Supporting"
-        name: "supporting"
-        file: "data/halaman/suporting.md"
+          - { label: "Gambar", name: "gambar", widget: "image" }
+      - file: "components/suporting.html"
+        label: "Suporting"
+        name: "suporting"
         fields:
-          - {label: "Gambar", name: "image", widget: "image"}
+          - { label: "Gambar", name: "gambar", widget: "image" }
