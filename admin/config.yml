@@ -1,46 +1,23 @@
 backend:
   name: git-gateway
-  branch: main # atau ganti sesuai nama branch GitHub lo
+  branch: main
 
-media_folder: "assets" # folder tempat nyimpen gambar
+media_folder: "assets"
 public_folder: "/assets"
 
 collections:
   - name: "proyek"
     label: "Proyek Terbaru"
+    label_singular: "Proyek"
     files:
-      - file: "index.html"
-        label: "Index - Proyek Terbaru"
-        name: "index_proyek"
+      - file: "data/proyek.yaml"
+        label: "Daftar Proyek"
+        name: "proyek"
         fields:
-          - { label: "Judul", name: "judul", widget: "string" }
-          - { label: "Deskripsi", name: "deskripsi", widget: "text" }
-
-  - name: "portofolio"
-    label: "Portofolio"
-    files:
-      - file: "portofolio.html"
-        label: "Portofolio Page"
-        name: "portofolio_page"
-        fields:
-          - { label: "Judul", name: "judul", widget: "string" }
-          - { label: "Isi", name: "isi", widget: "text" }
-
-  - name: "gambar"
-    label: "Gambar Halaman"
-    files:
-      - file: "revegetasi.html"
-        label: "Revegetasi"
-        name: "revegetasi"
-        fields:
-          - { label: "Gambar", name: "gambar", widget: "image" }
-      - file: "penyiraman.html"
-        label: "Penyiraman"
-        name: "penyiraman"
-        fields:
-          - { label: "Gambar", name: "gambar", widget: "image" }
-      - file: "components/suporting.html"
-        label: "Suporting"
-        name: "suporting"
-        fields:
-          - { label: "Gambar", name: "gambar", widget: "image" }
+          - label: "Daftar Proyek"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Judul", name: "title", widget: "string" }
+              - { label: "Deskripsi", name: "description", widget: "text" }
+              - { label: "Gambar", name: "image", widget: "image" }
