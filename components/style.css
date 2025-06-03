@@ -896,28 +896,24 @@ body {
 }
 
 .project-grid h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 1rem 0 0.5rem 0;
-  color: #fff;
-  text-align: left;
-  transition: color 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: white;
+  text-align: center;
 }
 
-.project-grid h3:hover {
-  color: #4CAF50; /* Warna aksen saat hover */
-}
+
 
 @media (max-width: 768px) {
   .project-grid h3 {
-    font-size: 1.25rem;
-    text-align: center;
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
   .project-grid h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 
