@@ -18,7 +18,7 @@ collections:
             name: "items"
             widget: "list"
             fields:
-              - { label: "Judul", name: "title", widget: "string" }
+             
               - { label: "Deskripsi", name: "description", widget: "text" }
               - { label: "Gambar", name: "image", widget: "image" }
 
