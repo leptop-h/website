@@ -1,7 +1,6 @@
 backend:
   name: git-gateway
   branch: main
-  identity_url: https://ptkaryamandiricakrabuana.netlify.app/.netlify/identity
 
 media_folder: "assets"
 public_folder: "/assets"
