@@ -20,6 +20,10 @@
           }
         });
 
+        if (window.location.hash.includes('invite_token')) {
+  window.location.href = '/admin/' + window.location.hash;
+}
+
         window.netlifyIdentity.init(); // ← WAJIB
       }
     </script>
