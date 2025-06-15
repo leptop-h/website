@@ -10,14 +10,14 @@
 
   <!-- Contoh halaman lain, tinggal ganti URL-nya -->
   <url>
-    <loc>https://ptkaryamandiricakrabuana.netlify.app/brief-summary</loc>
+    <loc>https://ptkaryamandiricakrabuana.netlify.app/portofolio</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://ptkaryamandiricakrabuana.netlify.app/struktur-organisasi</loc>
+    <loc>https://ptkaryamandiricakrabuana.netlify.app/penyiraman</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
