@@ -6,21 +6,25 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
+
+    <!-- Tombol login manual -->
+    <a href="#" onclick="window.netlifyIdentity && window.netlifyIdentity.open()">Login Manual</a>
+
     <script>
-     if (window.netlifyIdentity) {
-  window.netlifyIdentity.on("init", (user) => {
-    if (!user) {
-      window.netlifyIdentity.on("login", () => {
-        document.location.href = "/admin/";
-      });
-    }
-  });
-  window.netlifyIdentity.init(); // ← ini yang bikin token diproses
-}
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+
+        window.netlifyIdentity.init(); // ← WAJIB
+      }
     </script>
 
-    <!-- Ini bagian utama Netlify CMS -->
+    <!-- Script CMS -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </body>
 </html>
-
